@@ -1,0 +1,5 @@
+host: localhost
+port: 3306
+user: root
+password: Liemdjack1@
+dbname: car_info

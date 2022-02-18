@@ -1,0 +1,39 @@
+syntax = "proto3";
+package rpc.car.v1;
+
+option go_package = "github.com/rpc/gen/go/car/service/v1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+message Car {
+  int64 id = 1;
+  string model = 2;
+  google.protobuf.Timestamp create_time = 3;
+  float cost = 4;
+}
+message GetCarInfoResponse { Car car = 1; }
+
+message GetCarInfoRequest {
+  int64 id = 1;
+  optional string model = 2;
+}
+
+message CreateCarInfoResponse { Car car = 1; }
+
+message CreateCarInfoRequest { Car car = 1; }
+
+service CarService {
+  rpc GetCarInfo(GetCarInfoRequest) returns (GetCarInfoResponse) {
+    option (google.api.http) = {
+      get : "/v1/api/car/{id}"
+    };
+  }
+
+  rpc CreateCarInfo(CreateCarInfoRequest) returns (CreateCarInfoResponse) {
+    option (google.api.http) = {
+      post : "/v1/api/car"
+      body : "car"
+    };
+  };
+}
