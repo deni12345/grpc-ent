@@ -23,7 +23,7 @@ func NewRouteServer(db *ent.Client) *routeServer {
 	}
 }
 func RunServer(ctx context.Context, s *routeServer, port string) error {
-	listen, err := net.Listen("tcp", ":"+port)
+	listen, err := net.Listen("tcp", ":8083")
 	if err != nil {
 		return err
 	}
@@ -47,6 +47,6 @@ func RunServer(ctx context.Context, s *routeServer, port string) error {
 	}()
 
 	// start gRPC server
-	log.Println("starting gRPC server...")
+	log.Println("starting gRPC server... at", port)
 	return server.Serve(listen)
 }

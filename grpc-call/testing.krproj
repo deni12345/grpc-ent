@@ -1,0 +1,16 @@
+{
+  "id": "cb48b72a-fa73-4501-9937-1fba0fee3caa",
+  "importStreams": [
+    {
+      "id": "1ba1ded9-fd09-4308-bf29-45f2cd4d2362",
+      "name": "car",
+      "importerName": "GrpcServerReflection",
+      "createMissingOperations": true,
+      "options": {
+        "endpoint": "https://localhost:8083"
+      }
+    }
+  ],
+  "authConfigs": [],
+  "certificates": []
+}
