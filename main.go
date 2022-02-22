@@ -10,6 +10,8 @@ import (
 func main() {
 	ctx := context.Background()
 	db, err := db.Open()
+	defer db.Close()
+
 	if err != nil {
 		log.Fatalf("failed to open connection db :%v", err)
 	}

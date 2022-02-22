@@ -10,20 +10,21 @@ import (
 
 func Open() (*ent.Client, error) {
 	configs.LoadConfigs()
-	dsn := fmt.Sprint(configs.Values.User,
-		":",
-		configs.Values.Password,
-		"@tcp(",
-		configs.Values.Host,
-		":",
-		configs.Values.Port,
-		")/",
-		configs.Values.DBName, "?parseTime=True")
+	// dsn := fmt.Sprint(configs.Values.User,
+	// 	":",
+	// 	configs.Values.Password,
+	// 	"@tcp(",
+	// 	configs.Values.Host,
+	// 	":",
+	// 	configs.Values.Port,
+	// 	")/",
+	// 	configs.Values.DBName, "?parseTime=True")
 
-	client, err := ent.Open("mysql", dsn)
+	client, err := ent.Open("mysql", "root:Liemdjack1@@tcp(localhost:3306)/garage?parseTime=true")
 	if err != nil {
 		client.Close()
 		return nil, fmt.Errorf("failed to connect database: %w", err)
 	}
+
 	return client, nil
 }

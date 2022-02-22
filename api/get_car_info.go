@@ -11,6 +11,8 @@ import (
 )
 
 func (s *routeServer) GetCarInfo(ctx context.Context, params *pb.GetCarInfoRequest) (*pb.GetCarInfoResponse, error) {
+	log.Println("hi there from the GET request")
+
 	var carInfo *ent.Car = nil
 	if params.Model != nil {
 		carInfo = s.DB.Car.Query().Where(car.ID(int(params.Id)), car.Model(*params.Model)).OnlyX(ctx)
@@ -28,6 +30,7 @@ func (s *routeServer) GetCarInfo(ctx context.Context, params *pb.GetCarInfoReque
 		Car: &pb.Car{
 			Model:      carInfo.Model,
 			CreateTime: createTime,
+			Cost:       float32(carInfo.Cost),
 		},
 	}, nil
 }
