@@ -26,9 +26,8 @@ func run() error {
 		return err
 	}
 
-	log.Println(err)
 	log.Println("http server listen and serve at port :8084")
-	return http.ListenAndServe("localhost:8084", mux)
+	return http.ListenAndServe(":8084", mux)
 }
 
 func main() {

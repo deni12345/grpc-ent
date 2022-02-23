@@ -11,13 +11,12 @@ import (
 )
 
 func (s *routeServer) GetCarInfo(ctx context.Context, params *pb.GetCarInfoRequest) (*pb.GetCarInfoResponse, error) {
-	log.Println("hi there from the GET request")
-
 	var carInfo *ent.Car = nil
+
 	if params.Model != nil {
-		carInfo = s.DB.Car.Query().Where(car.ID(int(params.Id)), car.Model(*params.Model)).OnlyX(ctx)
+		carInfo, _ = s.DB.Car.Query().Where(car.ID(int(params.Id)), car.Model(*params.Model)).Only(ctx)
 	} else {
-		carInfo = s.DB.Car.Query().Where(car.ID(int(params.Id))).OnlyX(ctx)
+		carInfo, _ = s.DB.Car.Query().Where(car.ID(int(params.Id))).Only(ctx)
 	}
 	createTime, err := ptypes.TimestampProto(carInfo.ManufactureDate)
 
@@ -30,7 +29,7 @@ func (s *routeServer) GetCarInfo(ctx context.Context, params *pb.GetCarInfoReque
 		Car: &pb.Car{
 			Model:      carInfo.Model,
 			CreateTime: createTime,
-			Cost:       float32(carInfo.Cost),
+			Cost:       carInfo.Cost,
 		},
 	}, nil
 }

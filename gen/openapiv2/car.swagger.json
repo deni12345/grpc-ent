@@ -130,7 +130,7 @@
         },
         "cost": {
           "type": "number",
-          "format": "float"
+          "format": "double"
         }
       }
     },

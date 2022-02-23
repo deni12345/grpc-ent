@@ -23,7 +23,7 @@ func NewRouteServer(db *ent.Client) *routeServer {
 	}
 }
 func RunServer(ctx context.Context, s *routeServer, port string) error {
-	listen, err := net.Listen("tcp", ":8083")
+	listen, err := net.Listen("tcp", port)
 	if err != nil {
 		return err
 	}

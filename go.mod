@@ -6,19 +6,12 @@ require github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.3
 
 require (
 	entgo.io/ent v0.10.0
-	google.golang.org/genproto v0.0.0-20220118154757-00ab72f36ad5
 	google.golang.org/grpc v1.44.0
-	google.golang.org/protobuf v1.27.1
 )
 
 require (
-	github.com/inconshreveable/mousetrap v1.0.0 // indirect
-	github.com/mattn/go-runewidth v0.0.9 // indirect
-	github.com/olekukonko/tablewriter v0.0.5 // indirect
-	github.com/spf13/cobra v1.3.0 // indirect
-	github.com/spf13/pflag v1.0.5 // indirect
-	golang.org/x/tools v0.1.9-0.20211216111533-8d383106f7e7 // indirect
-	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
+	google.golang.org/genproto v0.0.0-20220118154757-00ab72f36ad5 // indirect
+	google.golang.org/protobuf v1.27.1 // indirect
 )
 
 require (

@@ -10,7 +10,7 @@ message Car {
   int64 id = 1;
   string model = 2;
   google.protobuf.Timestamp create_time = 3;
-  float cost = 4;
+  double cost = 4;
 }
 message GetCarInfoResponse { Car car = 1; }
 
@@ -21,7 +21,11 @@ message GetCarInfoRequest {
 
 message CreateCarInfoResponse { Car car = 1; }
 
-message CreateCarInfoRequest { Car car = 1; }
+message CreateCarInfoRequest {
+  string model = 2;
+  google.protobuf.Timestamp create_time = 3;
+  double cost = 4;
+}
 
 service CarService {
   rpc GetCarInfo(GetCarInfoRequest) returns (GetCarInfoResponse) {
@@ -33,7 +37,7 @@ service CarService {
   rpc CreateCarInfo(CreateCarInfoRequest) returns (CreateCarInfoResponse) {
     option (google.api.http) = {
       post : "/v1/api/car"
-      body : "car"
+      body : "*"
     };
   };
 }

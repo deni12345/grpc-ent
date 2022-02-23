@@ -17,6 +17,6 @@ func main() {
 	}
 
 	s := api.NewRouteServer(db)
-	api.RunServer(ctx, s, "8083")
+	api.RunServer(ctx, s, ":8083")
 
 }
