@@ -11,7 +11,7 @@ import (
 
 func (s *routeServer) CreateCarInfo(ctx context.Context, params *v1.CreateCarInfoRequest) (*v1.CreateCarInfoResponse, error) {
 	log.Println(params)
-	manufactureDate := params.CreateTime.AsTime()
+	manufactureDate := params.Car.CreateTime.AsTime()
 
 	if err := s.DB.Schema.Create(context.Background()); err != nil {
 		log.Fatalf("failed creating schema resource: %v", err)
@@ -19,8 +19,8 @@ func (s *routeServer) CreateCarInfo(ctx context.Context, params *v1.CreateCarInf
 
 	car, err := s.DB.Car.
 		Create().
-		SetModel(params.Model).
-		SetCost(params.Cost).
+		SetModel(params.Car.Model).
+		SetCost(params.Car.Cost).
 		SetManufactureDate(manufactureDate).
 		Save(ctx)
 	if err != nil {

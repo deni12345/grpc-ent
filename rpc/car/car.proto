@@ -5,6 +5,7 @@ option go_package = "github.com/rpc/gen/go/car/service/v1";
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
 
 message Car {
   int64 id = 1;
@@ -21,11 +22,9 @@ message GetCarInfoRequest {
 
 message CreateCarInfoResponse { Car car = 1; }
 
-message CreateCarInfoRequest {
-  string model = 2;
-  google.protobuf.Timestamp create_time = 3;
-  double cost = 4;
-}
+message CreateCarInfoRequest { Car car = 1; }
+
+message GetCarsInfoResponse { repeated Car car = 1; }
 
 service CarService {
   rpc GetCarInfo(GetCarInfoRequest) returns (GetCarInfoResponse) {
@@ -34,10 +33,18 @@ service CarService {
     };
   }
 
+  rpc StreamCarsInfo(google.protobuf.Empty) returns (stream Car) {}
+
   rpc CreateCarInfo(CreateCarInfoRequest) returns (CreateCarInfoResponse) {
     option (google.api.http) = {
       post : "/v1/api/car"
-      body : "*"
+      body : "car"
     };
   };
+
+  rpc GetCarsInfo(google.protobuf.Empty) returns (GetCarsInfoResponse) {
+    option (google.api.http) = {
+      get : "/v1/api/cars"
+    };
+  }
 }
