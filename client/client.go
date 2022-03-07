@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"io"
 	"log"
 
 	pb "grpc-ent/gen/car"
@@ -19,7 +18,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	// c := pb.NewCarServiceClient(conn)
+	c := pb.NewCarServiceClient(conn)
 	ctx := context.Background()
 
 	// t := time.Now().In(time.UTC)
@@ -27,33 +26,33 @@ func main() {
 	// createRequest := &pb.GetCarInfoRequest{
 	// 	Id: 1,
 	// }
-	// res, err := c.GetCarInfo(ctx, createRequest)
-	// if err != nil {
-	// 	log.Fatalf("Create failed: %v", err)
-	// }
-	// log.Printf("Create result: <%+v>\n\n", res)
-
-	c := pb.NewCarServiceClient(conn)
-	in := emptypb.Empty{}
-	stream, err := c.GetCarsInfo(ctx, &in)
+	res, err := c.GetCarsInfo(ctx, &emptypb.Empty{})
 	if err != nil {
-		log.Fatalf("open stream error %v", err)
+		log.Fatalf("Create failed: %v", err)
 	}
-	done := make(chan bool)
+	log.Printf("Result: <%+v>\n\n", res)
 
-	go func() {
-		for {
-			resp, err := stream.Recv()
-			if err == io.EOF {
-				done <- true
-				return
-			}
-			if err != nil {
-				log.Printf("fail to stream cars: ", err)
-			}
-			log.Printf("Resp received: %s", resp.Model)
-		}
-	}()
-	<-done
+	// c := pb.NewCarServiceClient(conn)
+	// in := emptypb.Empty{}
+	// stream, err := c.StreamCarsInfo(ctx, &in)
+	// if err != nil {
+	// 	log.Fatalf("open stream error %v", err)
+	// }
+	// done := make(chan bool)
+
+	// go func() {
+	// 	for {
+	// 		resp, err := stream.Recv()
+	// 		if err == io.EOF {
+	// 			done <- true
+	// 			return
+	// 		}
+	// 		if err != nil {
+	// 			log.Printf("fail to stream cars: ", err)
+	// 		}
+	// 		log.Printf("Resp received: %s", resp.Model)
+	// 	}
+	// }()
+	// <-done
 	log.Println("finished streaming")
 }

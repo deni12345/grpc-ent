@@ -10,7 +10,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *routeServer) GetCarsInfo(params *emptypb.Empty, stream v1.CarService_GetCarsInfoServer) error {
+func (s *routeServer) StreamCarsInfo(params *emptypb.Empty, stream v1.CarService_StreamCarsInfoServer) error {
 	log.Println("hello from cars")
 
 	ctx := context.Background()
